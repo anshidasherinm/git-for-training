@@ -6,17 +6,21 @@ import TodosContainer from "./components/TodosContainer";
 import Card from "./ui/Card";
 
 function App() {
-  const [todoList, setTodoList] = useState([
-    { id: 1, title: "Buy Groceries", checked: false },
-    { id: 2, title: "Go to Gym", checked: false },
-    { id: 3, title: "Plan next task", checked: true },
-    { id: 4, title: "Another task", checked: false },
-  ]);
+  const [todoList, setTodoList] = useState(
+    () => {
+      return JSON.parse(localStorage.getItem("todoList"));
+    }
+    //   [
+    //   { id: 1, title: "Buy Groceries", checked: false },
+    //   { id: 2, title: "Go to Gym", checked: false },
+    //   { id: 3, title: "Plan next task", checked: true },
+    //   { id: 4, title: "Another task", checked: false },
+    // ]
+  );
 
-  // const todos = [
-  //   { id: 1, title: "react study", checked: false },
-  //   { id: 2, title: "compleet project", checked: false },
-  // ];
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+  }, [todoList]);
 
   const addTodoHandler = (todo) => {
     setTodoList((prev) => [...prev, todo]);
@@ -30,19 +34,7 @@ function App() {
     );
   };
 
-  // useEffect(() => {
-  //   setTodoList(todoList);
-  // }, [todoList]);
-
   const addCheckHandler = (id) => {
-    // const newTodoList = todoList;
-    // for (var key of newTodoList) {
-    //   if (key.id === status.id) {
-    //     key.checked = status.checked;
-    //   }
-    // }
-    // setTodoList(newTodoList);
-    // console.log(todoList);
     const newTodoList = todoList.map((todo) => {
       if (todo.id === id) {
         return { ...todo, checked: !todo.checked };

@@ -3,7 +3,7 @@ import NewTodoList from "./NewTodoList";
 import classes from "./TodosContainer.module.css";
 import CompletedTodoList from "./CompletedTodoList";
 const TodosContainer = (props) => {
-  console.log(props.todos);
+  // console.log(props.todos);
   const removeTodoHandler = (id) => {
     props.removeTodoHandler(id);
   };
